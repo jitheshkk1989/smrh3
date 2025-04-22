@@ -1,0 +1,82 @@
+[90m= [39m[34;4mIlluminate\Support\Collection[39;24m {#5180
+    [34mall[39m: [
+      [
+        "[34mlabel[39m" => "[32mDashboard[39m",
+        "[34mroute[39m" => "[32mdashboard[39m",
+        "[34micon[39m" => "[32mlas la-home[39m",
+        "[34mpermissions[39m" => [
+          "[32mview-dashboard[39m",
+        ],
+        "[34msub_menu[39m" => [
+          [
+            "[34mlabel[39m" => "[32mAccount Dashboard[39m",
+            "[34mroute[39m" => "[32mdashboard.account[39m",
+            "[34mpermissions[39m" => [
+              "[32mview-account-dashboard[39m",
+            ],
+          ],
+        ],
+      ],
+      [
+        "[34mlabel[39m" => "[32mUser[39m",
+        "[34micon[39m" => "[32mlas la-user-tie[39m",
+        "[34mpermissions[39m" => [
+          "[32mmanage-users[39m",
+        ],
+        "[34msub_menu[39m" => [
+          [
+            "[34mlabel[39m" => "[32mUser Profile[39m",
+            "[34mroute[39m" => "[32mprofile[39m",
+            "[34mpermissions[39m" => [
+              "[32mview-profile[39m",
+            ],
+          ],
+          [
+            "[34mlabel[39m" => "[32mUser Edit[39m",
+            "[34mroute[39m" => "[32mprofile.edit[39m",
+            "[34mpermissions[39m" => [
+              "[32medit-profile[39m",
+            ],
+          ],
+          [
+            "[34mlabel[39m" => "[32mUser Add[39m",
+            "[34mroute[39m" => "[32musers.create[39m",
+            "[34mpermissions[39m" => [
+              "[32mcreate-user[39m",
+            ],
+          ],
+          [
+            "[34mlabel[39m" => "[32mUser List[39m",
+            "[34mroute[39m" => "[32musers.index[39m",
+            "[34mpermissions[39m" => [
+              "[32mlist-users[39m",
+            ],
+          ],
+        ],
+      ],
+      [
+        "[34mlabel[39m" => "[32mUI Elements[39m",
+        "[34micon[39m" => "[32mlab la-elementor[39m",
+        "[34mpermissions[39m" => [
+          "[32mview-ui-elements[39m",
+        ],
+        "[34msub_menu[39m" => [
+          [
+            "[34mlabel[39m" => "[32mColors[39m",
+            "[34mroute[39m" => "[32mui.colors[39m",
+            "[34mpermissions[39m" => [
+              "[32mview-ui-colors[39m",
+            ],
+          ],
+          [
+            "[34mlabel[39m" => "[32mTypography[39m",
+            "[34mroute[39m" => "[32mui.typography[39m",
+            "[34mpermissions[39m" => [
+              "[32mview-ui-typography[39m",
+            ],
+          ],
+        ],
+      ],
+    ],
+  }
+
