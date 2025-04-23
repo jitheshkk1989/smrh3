@@ -1,0 +1,39 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <h1>Edit Finance Details</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <form action="{{ route('profile.update-finance', ['id' => $financeDetail->id]) }}" method="POST">
+                    @csrf
+                    @method('PUT')  {{-- Method spoofing for PUT requests --}}
+
+                    <div class="mb-3">
+                        <label for="salary" class="form-label">Salary</label>
+                        <input type="number" class="form-control" id="salary" name="salary" value="{{ $financeDetail->salary ?? '' }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="bank_name" class="form-label">Bank Name</label>
+                        <input type="text" class="form-control" id="bank_name" name="bank_name" value="{{ $financeDetail->bank_name ?? '' }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="account_number" class="form-label">Account Number</label>
+                        <input type="text" class="form-control" id="account_number" name="account_number" value="{{ $financeDetail->account_number ?? '' }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="pan_number" class="form-label">PAN Number</label>
+                        <input type="text" class="form-control" id="pan_number" name="pan_number" value="{{ $financeDetail->pan_number ?? '' }}">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a href="{{ route('my-profile') }}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection

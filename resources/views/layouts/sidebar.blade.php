@@ -1,8 +1,8 @@
 <div class="iq-sidebar">
     <div class="iq-navbar-logo d-flex justify-content-between">
         <a href="{{ url('/') }}" class="header-logo">
-            <img src="{{ asset('images/logo.png') }}" class="rounded img-fluid" alt="">
-            <span>FinDash</span>
+            <!-- <img src="{{ asset('images/logo.png') }}" class="rounded img-fluid" alt=""> -->
+            <span>SMRH</span>
         </a>
         </div>
     <div id="sidebar-scrollbar">

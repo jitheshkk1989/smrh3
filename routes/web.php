@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\MenuPermissionController;
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,3 +31,23 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/menu-permissions/{user}', [App\Http\Controllers\Admin\MenuPermissionController::class, 'edit'])->name('admin.menu-permissions.edit');
     Route::put('/menu-permissions/{user}', [App\Http\Controllers\Admin\MenuPermissionController::class, 'update'])->name('admin.menu-permissions.update');
 });
+//Profile Routes
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+Route::get('/my-profile', [ProfileController::class, 'show'])->name('my-profile');
+// Routes for editing existing details
+Route::get('/my-profile/professional/edit', [ProfileController::class, 'editProfessional'])->name('profile.edit-professional');
+Route::get('/my-profile/contact/edit', [ProfileController::class, 'editContact'])->name('profile.edit-contact');
+Route::get('/my-profile/finance/edit', [ProfileController::class, 'editFinance'])->name('profile.edit-finance');
+
+// Routes for adding new details
+Route::get('/my-profile/professional/create', [ProfileController::class, 'createProfessional'])->name('profile.create-professional');
+Route::get('/my-profile/contact/create', [ProfileController::class, 'createContact'])->name('profile.create-contact');
+Route::get('/my-profile/finance/create', [ProfileController::class, 'createFinance'])->name('profile.create-finance');
+
+// Adjusted update routes (no longer nested under /my-profile)
+Route::put('/professional', [ProfileController::class, 'updateProfessionalDetails'])->name('profile.update-professional');
+Route::put('/contact', [ProfileController::class, 'updateContactDetails'])->name('profile.update-contact');
+Route::put('/finance', [ProfileController::class, 'updateFinanceDetails'])->name('profile.update-finance');
+Route::post('/professional', [ProfileController::class, 'storeProfessionalDetails'])->name('profile.store-professional');
+Route::post('/contact', [ProfileController::class, 'storeContactDetails'])->name('profile.store-contact');
+Route::post('/finance', [ProfileController::class, 'storeFinanceDetails'])->name('profile.store-finance'); 
