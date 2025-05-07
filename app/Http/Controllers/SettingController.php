@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Storage;
-
+use App\Models\EmailSetting;
 class SettingController extends Controller
 {
     public function editGeneral()
@@ -73,6 +73,7 @@ public function updateEmail(Request $request)
 
     return redirect()->back()->with('success', 'Email settings updated.');
 }
+
 public function editNotifications()
 {
     $settings = Setting::where('key', 'notifications')->first();
@@ -94,5 +95,42 @@ public function updateNotifications(Request $request)
     );
 
     return redirect()->back()->with('success', 'Notification settings updated.');
+}
+// Show the email settings form
+public function showEmailSettings()
+{
+    // Retrieve the email settings from the database (using Eloquent)
+    $settings = EmailSetting::first();
+
+    // Pass the settings to the view
+    return view('settings.email', compact('settings'));
+}
+
+// Update the email settings
+public function updateEmailSettings(Request $request)
+{
+    // Validate the input data
+    $request->validate([
+        'smtp_host' => 'required|string',
+        'smtp_port' => 'required|string',
+        'smtp_user' => 'required|string',
+        'smtp_pass' => 'required|string',
+        'from_address' => 'required|email',
+        'from_name' => 'required|string',
+    ]);
+
+    // Retrieve the email settings and update them
+    $settings = EmailSetting::first();  // Assuming you only have one record for email settings
+    $settings->update([
+        'smtp_host' => $request->smtp_host,
+        'smtp_port' => $request->smtp_port,
+        'smtp_user' => $request->smtp_user,
+        'smtp_pass' => $request->smtp_pass,
+        'from_address' => $request->from_address,
+        'from_name' => $request->from_name,
+    ]);
+
+    // Redirect back with a success message
+    return redirect()->route('settings.email.show')->with('success', 'Email settings updated successfully.');
 }
 }

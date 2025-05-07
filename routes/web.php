@@ -57,7 +57,7 @@ Route::post('/finance', [ProfileController::class, 'storeFinanceDetails'])->name
 Route::prefix('settings')->middleware(['auth'])->group(function () {
     // General settings
     Route::get('/general', [SettingController::class, 'editGeneral'])->name('settings.general.edit');
-    Route::post('/general', [SettingController::class, 'updateGeneral'])->name('settings.general.update');
+    Route::put('/general', [SettingController::class, 'updateGeneral'])->name('settings.general.update');
 
     // Email settings
     Route::get('/email', [SettingController::class, 'editEmail'])->name('settings.email.edit');

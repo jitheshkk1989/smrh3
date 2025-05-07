@@ -1,93 +1,100 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow-md">
-    <h2 class="text-2xl font-semibold mb-6 text-[#722257]">General Settings</h2>
-
-    <form action="{{ route('settings.general.update') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-
-        {{-- Company Details --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div>
-                <label for="company_name" class="block text-sm font-medium text-gray-700">Company Name</label>
-                <input type="text" id="company_name" name="company_name" class="mt-1 block w-full border border-gray-300 rounded-md p-2" value="{{ old('company_name', $settings->company_name ?? '') }}">
-            </div>
-
-            <div>
-                <label for="company_logo" class="block text-sm font-medium text-gray-700">Company Logo</label>
-                <input type="file" id="company_logo" name="company_logo" class="mt-1 block w-full">
-                @if(isset($settings->company_logo))
-                    <img src="{{ asset('storage/'.$settings->company_logo) }}" alt="Logo" class="h-12 mt-2">
-                @endif
-            </div>
-
-            <div class="col-span-2">
-                <label for="address" class="block text-sm font-medium text-gray-700">Company Address</label>
-                <textarea id="address" name="address" class="mt-1 block w-full border border-gray-300 rounded-md p-2" rows="3">{{ old('address', $settings->address ?? '') }}</textarea>
-            </div>
+<div class="iq-card">
+    <div class="iq-card-header d-flex justify-content-between">
+        <div class="iq-header-title">
+            <h4 class="card-title">General Settings</h4>
         </div>
+    </div>
+    <div class="iq-card-body">
+        <form action="{{ route('settings.general.update') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
 
-        {{-- Timezone & Currency --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div>
-                <label for="time_zone" class="block text-sm font-medium text-gray-700">Time Zone</label>
-                <select id="time_zone" name="time_zone" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-                    @foreach(timezone_identifiers_list() as $tz)
-                        <option value="{{ $tz }}" {{ old('time_zone', $settings->time_zone ?? '') == $tz ? 'selected' : '' }}>{{ $tz }}</option>
+            {{-- Company Details --}}
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="company_name">Company Name</label>
+                    <input type="text" class="form-control" id="company_name" name="company_name" value="{{ old('company_name', $settings->company_name ?? '') }}">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="company_logo">Company Logo</label>
+                    <input type="file" class="form-control" id="company_logo" name="company_logo">
+                    @if(isset($settings->company_logo))
+                        <img src="{{ asset('storage/'.$settings->company_logo) }}" alt="Logo" class="mt-2" height="50">
+                    @endif
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <label for="address">Company Address</label>
+                    <textarea class="form-control" id="address" name="address" rows="3">{{ old('address', $settings->address ?? '') }}</textarea>
+                </div>
+            </div>
+
+            {{-- Time Zone and Currency --}}
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="time_zone">Time Zone</label>
+                    <select class="form-control" id="time_zone" name="time_zone">
+                        @foreach(timezone_identifiers_list() as $tz)
+                            <option value="{{ $tz }}" {{ old('time_zone', $settings->time_zone ?? '') == $tz ? 'selected' : '' }}>{{ $tz }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="currency">Currency</label>
+                    <input type="text" class="form-control" id="currency" name="currency" value="{{ old('currency', $settings->currency ?? '') }}">
+                </div>
+            </div>
+
+            {{-- Fiscal Year & Date Format --}}
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="fiscal_year">Fiscal Year Start</label>
+                    <input type="date" class="form-control" id="fiscal_year" name="fiscal_year" value="{{ old('fiscal_year', $settings->fiscal_year ?? '') }}">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="date_format">Date Format</label>
+                    <select class="form-control" id="date_format" name="date_format">
+                        <option value="Y-m-d" {{ old('date_format', $settings->date_format ?? '') == 'Y-m-d' ? 'selected' : '' }}>YYYY-MM-DD</option>
+                        <option value="d-m-Y" {{ old('date_format', $settings->date_format ?? '') == 'd-m-Y' ? 'selected' : '' }}>DD-MM-YYYY</option>
+                        <option value="m/d/Y" {{ old('date_format', $settings->date_format ?? '') == 'm/d/Y' ? 'selected' : '' }}>MM/DD/YYYY</option>
+                    </select>
+                </div>
+            </div>
+
+            {{-- Working Days --}}
+            <div class="form-group">
+                <label class="mb-2 d-block">Working Days</label>
+                @php
+                    $workingDays = old('working_days', $settings->working_days ?? '[]');
+                @endphp
+                <div class="form-check form-check-inline">
+                    @foreach(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as $day)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="working_days[]" id="day_{{ $day }}" value="{{ $day }}"
+                                {{ in_array($day, $workingDays) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="day_{{ $day }}">{{ $day }}</label>
+                        </div>
                     @endforeach
-                </select>
+                </div>
             </div>
 
-            <div>
-                <label for="currency" class="block text-sm font-medium text-gray-700">Currency</label>
-                <input type="text" id="currency" name="currency" class="mt-1 block w-full border border-gray-300 rounded-md p-2" value="{{ old('currency', $settings->currency ?? '') }}">
-            </div>
-        </div>
-
-        {{-- Fiscal Year & Date Format --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div>
-                <label for="fiscal_year" class="block text-sm font-medium text-gray-700">Fiscal Year Start (YYYY-MM-DD)</label>
-                <input type="date" id="fiscal_year" name="fiscal_year" class="mt-1 block w-full border border-gray-300 rounded-md p-2" value="{{ old('fiscal_year', $settings->fiscal_year ?? '') }}">
+            {{-- Holidays --}}
+            <div class="form-group">
+                <label for="holidays">Holidays (comma-separated)</label>
+                <input type="text" class="form-control" id="holidays" name="holidays" value="{{ old('holidays', $settings->holidays ?? '') }}" placeholder="2025-01-01,2025-08-15">
             </div>
 
-            <div>
-                <label for="date_format" class="block text-sm font-medium text-gray-700">Date Format</label>
-                <select id="date_format" name="date_format" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-                    <option value="Y-m-d" {{ old('date_format', $settings->date_format ?? '') == 'Y-m-d' ? 'selected' : '' }}>YYYY-MM-DD</option>
-                    <option value="d-m-Y" {{ old('date_format', $settings->date_format ?? '') == 'd-m-Y' ? 'selected' : '' }}>DD-MM-YYYY</option>
-                    <option value="m/d/Y" {{ old('date_format', $settings->date_format ?? '') == 'm/d/Y' ? 'selected' : '' }}>MM/DD/YYYY</option>
-                </select>
+            {{-- Submit --}}
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-primary">Save Settings</button>
             </div>
-        </div>
-
-        {{-- Working Days & Holidays --}}
-        <div class="mb-6">
-            <label class="block text-sm font-medium text-gray-700 mb-1">Working Days</label>
-            <div class="flex flex-wrap gap-2">
-                @foreach(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as $day)
-                    <label class="inline-flex items-center">
-                        <input type="checkbox" name="working_days[]" value="{{ $day }}"
-                            {{ in_array($day, old('working_days', json_decode($settings->working_days ?? '[]'))) ? 'checked' : '' }}>
-                        <span class="ml-2">{{ $day }}</span>
-                    </label>
-                @endforeach
-            </div>
-        </div>
-
-        <div class="mb-6">
-            <label for="holidays" class="block text-sm font-medium text-gray-700">Holidays (Comma-separated dates)</label>
-            <input type="text" id="holidays" name="holidays" class="mt-1 block w-full border border-gray-300 rounded-md p-2" placeholder="2025-01-01,2025-08-15" value="{{ old('holidays', $settings->holidays ?? '') }}">
-        </div>
-
-        {{-- Submit Button --}}
-        <div class="text-right">
-            <button type="submit" class="bg-[#722257] text-white px-6 py-2 rounded-lg hover:bg-[#5a1b44]">
-                Save Settings
-            </button>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 @endsection
