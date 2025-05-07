@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\MenuPermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,3 +53,16 @@ Route::put('/finance', [ProfileController::class, 'updateFinanceDetails'])->name
 Route::post('/professional', [ProfileController::class, 'storeProfessionalDetails'])->name('profile.store-professional');
 Route::post('/contact', [ProfileController::class, 'storeContactDetails'])->name('profile.store-contact');
 Route::post('/finance', [ProfileController::class, 'storeFinanceDetails'])->name('profile.store-finance'); 
+
+Route::prefix('settings')->middleware(['auth'])->group(function () {
+    // General settings
+    Route::get('/general', [SettingController::class, 'editGeneral'])->name('settings.general.edit');
+    Route::post('/general', [SettingController::class, 'updateGeneral'])->name('settings.general.update');
+
+    // Email settings
+    Route::get('/email', [SettingController::class, 'editEmail'])->name('settings.email.edit');
+    Route::post('/email', [SettingController::class, 'updateEmail'])->name('settings.email.update');
+    
+    Route::get('/notifications', [SettingController::class, 'editNotifications'])->name('settings.notifications.edit');
+    Route::post('/notifications', [SettingController::class, 'updateNotifications'])->name('settings.notifications.update');
+});

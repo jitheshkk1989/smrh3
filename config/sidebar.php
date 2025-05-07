@@ -73,6 +73,28 @@ return [
                 // ... other UI elements
             ],
         ],
+        [
+            'label' => 'Settings',
+            'icon' => 'las la-cog',
+            'permissions' => ['manage-settings'], // top-level permission
+            'sub_menu' => [
+                [
+                    'label' => 'General Settings',
+                    'route' => 'settings.general.edit',
+                    'permissions' => ['view-general-settings'],
+                ],
+                [
+                    'label' => 'Email Settings',
+                    'route' => 'settings.email.edit',
+                    'permissions' => ['view-email-settings'],
+                ],
+                [
+                    'label' => 'Notification Settings',
+                    'route' => 'settings.notifications.edit',
+                    'permissions' => ['view-notification-settings'],
+                ],
+            ],
+        ],
         // ... other top-level menu items
     ],
 ];
