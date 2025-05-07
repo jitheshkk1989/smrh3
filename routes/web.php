@@ -23,7 +23,7 @@ Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
-Route::get('home', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+Route::get('dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
 // Permission Menu Routes
 Route::prefix('admin')->middleware('auth')->group(function () {

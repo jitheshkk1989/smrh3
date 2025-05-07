@@ -9,8 +9,8 @@ return [
             'permissions' => ['view-dashboard'], // Array of required permissions
             'sub_menu' => [
                 [
-                    'label' => 'Account Dashboard',
-                    'route' => 'logout',
+                    'label' => 'New Dahsboard',
+                    'route' => 'dashboard',
                     'permissions' => ['view-account-dashboard'],
                 ],
             ],
