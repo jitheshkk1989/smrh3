@@ -12,8 +12,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id'); // Foreign key to the users table
             $table->unsignedBigInteger('user_group_id'); // Foreign key to the user_groups table
             $table->string('employee_code')->unique(); // Unique employee code/ID
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('position')->nullable(); // Job title

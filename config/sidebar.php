@@ -18,7 +18,7 @@ return [
         [
             'label' => 'User',
             'icon' => 'las la-user-tie',
-            'permissions' => ['manage-users'],
+            'permissions' => ['manage-users', 'manage-employees'], // Added 'manage-employees'
             'sub_menu' => [
                 [
                     'label' => 'User Profile',
@@ -39,6 +39,16 @@ return [
                     'label' => 'User List',
                     'route' => 'users.index',
                     'permissions' => ['list-users'],
+                ],
+                [
+                    'label' => 'Employee Add',
+                    'route' => 'employees.create',
+                    'permissions' => ['create-employee'],
+                ],
+                [
+                    'label' => 'Employee List',
+                    'route' => 'employees.index',
+                    'permissions' => ['list-employees'],
                 ],
             ],
         ],

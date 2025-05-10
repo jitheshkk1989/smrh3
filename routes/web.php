@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\MenuPermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\EmployeeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -66,3 +67,6 @@ Route::prefix('settings')->middleware(['auth'])->group(function () {
     Route::get('/notifications', [SettingController::class, 'editNotifications'])->name('settings.notifications.edit');
     Route::post('/notifications', [SettingController::class, 'updateNotifications'])->name('settings.notifications.update');
 });
+Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
+Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
+Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
