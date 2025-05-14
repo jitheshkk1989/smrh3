@@ -82,7 +82,7 @@
                                 <ul class="collapse iq-submenu {{ collect($item['sub_menu'])->contains(fn($subItem) => (\App\Models\UserMenuPermission::where('user_id', Auth::id())->pluck('enabled', 'menu_item_key')->get($subItem['key'] ?? Str::slug($subItem['label'])) ?? true) && request()->routeIs($subItem['route'] ?? '')) ? 'show' : '' }}"
                                     id="{{ Str::slug($item['label']) }}"
                                     data-parent="#iq-sidebar-toggle">
-                                    @foreach($item['sub_menu'] as $subItem)
+                                    @foreach($item['sub_menu'] as $subItem) 
                                         @php
                                             $subItemKey = $subItem['key'] ?? Str::slug($subItem['label']);
                                             $isSubItemEnabled = \App\Models\UserMenuPermission::where('user_id', Auth::id())->pluck('enabled', 'menu_item_key')->get($subItemKey) ?? true;
