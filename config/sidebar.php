@@ -21,7 +21,7 @@ return [
             'permissions' => ['manage-users', 'manage-employees'], // Added 'manage-employees'
             'sub_menu' => [
                 [
-                    'label' => 'User Profile',
+                    'label' => 'User Profile', 
                     'route' => 'profile',
                     'permissions' => ['view-profile'],
                 ],
